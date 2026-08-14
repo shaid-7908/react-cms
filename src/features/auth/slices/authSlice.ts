@@ -1,16 +1,35 @@
-import { createSlice,type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+
+export interface User {
+  _id: string;
+  role: {
+    _id: string;
+    role: string;
+    roleDisplayName: string;
+  };
+  firstName: string;
+  lastName: string;
+  fullName: string;
+  email: string;
+  userName: string;
+  profileImage: string;
+  status: string;
+  createdAt: string;
+}
 
 // 1. Define the shape of your state
 interface AuthState {
   isAuthenticated: boolean;
-  token: string | null;
-  user: { name: string; email: string } | null;
+  accessToken: string | null;
+  refreshToken: string | null;
+  user: User | null;
 }
 
 // 2. Set the initial state
 const initialState: AuthState = {
   isAuthenticated: false,
-  token: null,
+  accessToken: null,
+  refreshToken: null,
   user: null,
 };
 
@@ -23,22 +42,26 @@ export const authSlice = createSlice({
     setCredentials: (
       state,
       action: PayloadAction<{
-        user: { name: string; email: string };
-        token: string;
+        user: User;
+        accessToken: string;
+        refreshToken: string;
       }>,
     ) => {
       state.user = action.payload.user;
-      state.token = action.payload.token;
+      state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
       state.isAuthenticated = true;
     },
     // Action: User logs out
     logOut: (state) => {
       state.user = null;
-      state.token = null;
+      state.accessToken = null;
+      state.refreshToken = null;
       state.isAuthenticated = false;
     },
   },
 });
 
 export const { setCredentials, logOut } = authSlice.actions;
+
 export default authSlice.reducer;
