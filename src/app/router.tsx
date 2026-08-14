@@ -4,6 +4,7 @@ import DashboardLayouts from "@/pages/dashboard/DashboardLayouts";
 import DashboardHome from "@/pages/dashboard/DashboardHome";
 import Issue from "@/pages/dashboard/Issue";
 import { ProtectedRoute } from "@/features/auth/components/ProtectedRoute";
+import TechnicianManagement from "@/pages/dashboard/TechnicianManagement";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
           {
             path: "issues", // Matches "/homedashboard/issues"
             element: <Issue />,
+          },
+          {
+            path: "technicians", // Matches "/homedashboard/issues"
+            element: <TechnicianManagement />,
           },
           //   {
           //     path: "issues/:issueId", // Dynamic route for a specific issue
